@@ -53,6 +53,7 @@
 						<i class="material-icons">label </i>
 						<span>Tag</span>
 					</a>
+					@else
 
 				@endif
 
@@ -75,11 +76,20 @@
 						<i class="material-icons">library_books</i>
 						<span>Posts</span>
 					</a>
-
+					
 				@endif
 
 				</li>
-
+				<li class="{{Request::is('author/post*')? "active" : ''}}">
+					@if (Request::is('author*'))
+						<a href="{{route('author.post.index')}}">
+							<i class="material-icons">library_books</i>
+							<span>Posts</span>
+						</a>
+						
+					@endif
+	
+					</li>
 			</ul>
 		</div>
 		<!-- #Menu -->

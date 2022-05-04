@@ -104,7 +104,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         //
-        return $post;
+        return view('admin.post.show', compact('post'));
     }
 
     /**
@@ -193,5 +193,15 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+        if (Storage::disk('public')->exists('post/'.$post->image)){
+            Storage::disk('public')->delete('post/'.$post->image);
+            Storage::disk('public')->delete('../'.$post->image);
+        }
+        $post->categories->detach();
+        $post->tags->detach();
+        $post->delete();
+        // Post::destroy($post->id);
+        Toastr::success('Post successfully deleted');
+        return redirect()->back();
     }
 }
